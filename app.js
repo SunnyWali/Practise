@@ -23,7 +23,11 @@ app.get("/",(req,res)=>{
     res.send("Home Page");
 });
 
-
+//Index Route
+app.get("/listings",async(req,res)=>{
+    let alllistings=await Listing.find({});
+    res.render("listing/index",{alllistings});
+})
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
