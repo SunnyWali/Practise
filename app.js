@@ -27,7 +27,13 @@ app.get("/",(req,res)=>{
 app.get("/listings",async(req,res)=>{
     let alllistings=await Listing.find({});
     res.render("listing/index",{alllistings});
-})
+});
+
+//New Route
+app.get("/listings/new",(req,res)=>{
+    res.render("listing/new");
+});
+
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
