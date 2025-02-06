@@ -37,7 +37,13 @@ app.get("/listings/new",(req,res)=>{
 
 
 //Show Route
-app.get("/listings/")
+app.get("/listings/:id",async(req,res)=>{
+    let {id}=req.params;
+    let listing=await Listing.findById(id);
+    res.render("listing/show",{listing});
+});
+
+
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
