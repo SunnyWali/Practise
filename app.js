@@ -35,6 +35,9 @@ app.get("/listings/new",(req,res)=>{
     res.render("listing/new");
 });
 
+
+//Show Route
+app.get("/listings/")
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
