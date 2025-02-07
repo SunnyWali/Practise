@@ -10,6 +10,7 @@ app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
+app.use(express.urlencoded({extended:true}));
 const main=async()=>{
     await mongoose.connect("mongodb://127.0.0.1:27017/practise");
 }
@@ -56,7 +57,7 @@ app.get("/listings/:id/edit",async(req,res)=>{
 app.put("/listings/:id",async(req,res)=>{
     let{id}=req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
-     res.redirect(`/listing/${id}`);
+     res.redirect(`/listings/${id}`);
 });
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
