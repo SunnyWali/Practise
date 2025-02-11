@@ -59,6 +59,8 @@ app.put("/listings/:id",async(req,res)=>{
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
      res.redirect(`/listings/${id}`);
 });
+
+
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
