@@ -70,3 +70,10 @@ app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
 
+app.listen((req,res)=>{
+    console.log("hello");
+});
+
+app.use((re,res)=>{
+    console.log();
+})
