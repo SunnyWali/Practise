@@ -67,6 +67,13 @@ app.delete("/listings/:id",async(req,res)=>{
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 })
+
+//Error handling middleware for all the pages
+app.all("*",(req,res,next)=>{
+    next(new expressError(400,"Page Not Found"));
+});
+
+
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
