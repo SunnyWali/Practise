@@ -5,7 +5,7 @@ const Listing = require("./models/listing");
 const path=require("path");
 const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
-const expressError=require("./utils/ExpressError");
+const ExpressError=require("./utils/ExpressError");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
@@ -67,6 +67,8 @@ app.delete("/listings/:id",async(req,res)=>{
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
 })
+
+//Error handling middleware for all the pages that doesnot exists
 
 
 app.listen(8080,()=>{
