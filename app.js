@@ -68,16 +68,8 @@ app.delete("/listings/:id",async(req,res)=>{
     res.redirect("/listings");
 })
 
-//Error handling middleware for all the pages that doesnot exists
-app.all("*",(req,res,next)=>{
-    next(new ExpressError(400,"Page Not Found"));
-});
 
-//Error handling middleware
-app.use((err,req,res,next)=>{
-    let{status=500,message="Error Occurred"}=err;
-    res.status(status).render("error",{message});
-});
+
 
 
 app.listen(8080,()=>{
