@@ -69,13 +69,12 @@ app.delete("/listings/:id",async(req,res)=>{
 })
 
 //Error handling middleware for all the pages that doesnot exists
-app.all
-
-//Error handling middleware
-app.use((err,req,res,next)=>{
-    let{status=500,message="Error Occured"}=err;
-    res.status(status).render("error",{message});
+app.all("*",(req,res,next)=>{
+    next(new ExpressError(400,"Page Doesnot Exists"));
 });
+
+
+
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
