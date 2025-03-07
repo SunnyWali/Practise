@@ -42,32 +42,32 @@ app.get("/listings/new",(req,res)=>{
 
 
 //Show Route
-app.get("/listings/:id",async(req,res)=>{
+app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let list=await Listing.findById(id);
     res.render("listing/show",{list});
-});
+}));
 
 //Edit Route
-app.get("/listings/:id/edit",async(req,res)=>{
+app.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let list=await Listing.findById(id);
     res.render("listing/edit",{list});
-});
+}));
 
 //Update Route
-app.put("/listings/:id",async(req,res)=>{
+app.put("/listings/:id",wrapAsync(async(req,res)=>{
     let{id}=req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
      res.redirect(`/listings/${id}`);
-});
+}));
 
 //Delete Route
-app.delete("/listings/:id",async(req,res)=>{
+app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
-})
+}));
 
 //Error handling middleware for all the pages that doesnot exists
 app.all("*",(req,res,next)=>{
