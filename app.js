@@ -6,6 +6,7 @@ const path=require("path");
 const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
 const ExpressError=require("./utils/ExpressError");
+const wrapAsync=require("./utils/wrapAsync");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
@@ -29,10 +30,10 @@ app.get("/",(req,res)=>{
 });
 
 //Index Route
-app.get("/listings",async(req,res)=>{
+app.get("/listings",wrapAsync(async(req,res)=>{
     let alllistings=await Listing.find({});
     res.render("listing/index",{alllistings});
-});
+}));
 
 //New Route
 app.get("/listings/new",(req,res)=>{
