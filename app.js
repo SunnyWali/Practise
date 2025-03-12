@@ -7,6 +7,7 @@ const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
 const ExpressError=require("./utils/ExpressError");
 const wrapAsync=require("./utils/wrapAsync");
+const listingSchema=require("./schema");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
@@ -23,7 +24,19 @@ main().then(()=>{
 .catch((err)=>{
     console.log(err);
 });
-
+//Validate Listing
+const validateListing=(req,res,next)=>{
+let{error}=listingSchema.validate(req.body.listing);
+if(error)
+{
+    let errMsg=error.details.map((el)=>el.message).join("");
+    throw new ExpressError(400,errMsg);
+}
+else
+{
+    next();
+}
+}
 //Home Route
 app.get("/",(req,res)=>{
     res.send("Home Page");
