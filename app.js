@@ -24,19 +24,20 @@ main().then(()=>{
 .catch((err)=>{
     console.log(err);
 });
-//Validate Listing
+//Creating function for validation listing Schema
 const validateListing=(req,res,next)=>{
-let{error}=listingSchema.validate(req.body.listing);
-if(error)
-{
-    let errMsg=error.details.map((el)=>el.message).join("");
-    throw new ExpressError(400,errMsg);
+    let{error}=listingSchema.validate(req.body.listing);
+    if(error)
+    {
+        let errMsg=error.details.map((el)=>el.message).join();
+        throw new ExpressError(400,errMsg);
+    }
+    else
+    {
+        next();
+    }
 }
-else
-{
-    next();
-}
-}
+
 //Home Route
 app.get("/",(req,res)=>{
     res.send("Home Page");
