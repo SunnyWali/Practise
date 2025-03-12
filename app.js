@@ -54,7 +54,8 @@ app.get("/listings/new",(req,res)=>{
     res.render("listing/new");
 });
 
-
+// Create Route
+app.post("/")
 //Show Route
 app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
@@ -70,7 +71,7 @@ app.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
 }));
 
 //Update Route
-app.put("/listings/:id",wrapAsync(async(req,res)=>{
+app.put("/listings/:id",validateListing,wrapAsync(async(req,res)=>{
     let{id}=req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
      res.redirect(`/listings/${id}`);
