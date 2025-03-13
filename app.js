@@ -59,6 +59,7 @@ app.get("/listings/new",(req,res)=>{
 app.post("/listings",validateListing,wrapAsync(async(req,res)=>{
     const newListing=new Listing(req.body.listing);
     await newListing.save();
+    res.redirect("/listings");
 }));
 
 //Show Route
