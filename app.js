@@ -24,6 +24,7 @@ main().then(()=>{
 .catch((err)=>{
     console.log(err);
 });
+
 //Creating function for validation listing Schema
 const validateListing=(req,res,next)=>{
     let{error}=listingSchema.validate(req.body.listing);
