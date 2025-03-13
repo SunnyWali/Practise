@@ -55,7 +55,11 @@ app.get("/listings/new",(req,res)=>{
 });
 
 // Create Route
-app.post("/")
+app.post("/listings",validateListing,wrapAsync(async(req,res)=>{
+    const newListing=new Listing(req.body.listing);
+    await newListing.save();
+}));
+
 //Show Route
 app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
