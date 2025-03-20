@@ -95,6 +95,11 @@ app.all("*",(req,res,next)=>{
     next(new ExpressError(400,"Page doesnot Exists"));
 });
 
+//Error handling middleware 
+app.use((err,req,res,next)=>{
+    let{status=500,message="Error Occured"}=err;
+    
+})
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
