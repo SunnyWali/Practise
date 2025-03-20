@@ -98,8 +98,9 @@ app.all("*",(req,res,next)=>{
 //Error handling middleware 
 app.use((err,req,res,next)=>{
     let{status=500,message="Error Occured"}=err;
-    
-})
+    res.status(status).render("error",{message});
+});
+
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
