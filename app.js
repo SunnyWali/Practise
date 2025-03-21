@@ -25,20 +25,19 @@ main().then(()=>{
     console.log(err);
 });
 
-//Creating function for validation listing Schema
-const validateListing=(req,res,next)=>{
-    let{error}=listingSchema.validate(req.body.listing);
-    if(error)
-    {
-        let errMsg=error.details.map((el)=>el.message).join();
-        throw new ExpressError(400,errMsg);
+//Creating function to validate listingSchema
+    const validateListing=(req,res,next)=>{
+        let {err}=listingSchema.validate(req.body.listing);
+        if(err)
+        {
+            let errMsg=error.details.map((el)=>el.message).join(",");
+            throw new ExpressError(400, errMsg);
+        }
+        else
+        {
+            next();
+        }
     }
-    else
-    {
-        next();
-    }
-}
-
 //Home Route
 app.get("/",(req,res)=>{
     res.send("Home Page");
