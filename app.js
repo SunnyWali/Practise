@@ -7,7 +7,7 @@ const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
 const ExpressError=require("./utils/ExpressError");
 const wrapAsync=require("./utils/wrapAsync");
-const listingSchema=require("./schema");
+const listingSchema = require("./schema");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
