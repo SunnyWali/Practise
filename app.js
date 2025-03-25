@@ -25,10 +25,10 @@ main().then(()=>{
     console.log(err);
 });
 
-//Creating function to validate listingSchema
+//Creating function for validate listingSchema
     const validateListing=(req,res,next)=>{
-        let {err}=listingSchema.validate(req.body.listing);
-        if(err)
+        let {error}=listingSchema.validate(req.body);
+        if(error)
         {
             let errMsg=error.details.map((el)=>el.message).join(",");
             throw new ExpressError(400, errMsg);
@@ -38,6 +38,7 @@ main().then(()=>{
             next();
         }
     }
+
 //Home Route
 app.get("/",(req,res)=>{
     res.send("Home Page");
@@ -103,8 +104,3 @@ app.use((err,req,res,next)=>{
 app.listen(8080,()=>{
     console.log("server is listening to the port no 8080");
 });
-
-
-
-
-
