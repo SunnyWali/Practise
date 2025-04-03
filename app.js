@@ -92,7 +92,7 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
 
 //Error handling middleware for the pages that doesnot exists
 app.all("*",(req,res,next)=>{
-    next(new ExpressError(400,"Page doesnot Exists"));
+    next(new ExpressError (400,"Page doesnot Exists"));
 });
 
 //Error handling middleware 
