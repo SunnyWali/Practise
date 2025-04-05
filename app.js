@@ -91,6 +91,12 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     res.redirect("/listings");
 }));
 
+//Error Handling Middleware for all the pages that doesnot exists
+app.all("*",(req,res,next)=>{
+    next(new ExpressError(400,"Page DoesNot Exists"));
+});
+
+//Error handling Middleware
 
 
 app.listen(8080,()=>{
