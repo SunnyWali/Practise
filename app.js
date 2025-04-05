@@ -97,6 +97,10 @@ app.all("*",(req,res,next)=>{
 });
 
 //Error handling Middleware
+app.use((err,req,res,next)=>{
+    let{status=500,message="Error Occurred"}=err;
+    res.status(status).render("error",{message});
+});
 
 
 app.listen(8080,()=>{
