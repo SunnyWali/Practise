@@ -6,11 +6,14 @@ const path=require("path");
 const ejsMate=require("ejs-mate");
 const methodOverride=require("method-override");
 const {listingSchema} = require("./schema");
+const wrapAsync=require("./utils/wrapAsync");
+const ExpressError=require("./utils/ExpressError");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));
 app.use(methodOverride("_method"));
 app.engine("ejs",ejsMate);
+
 app.use(express.urlencoded({extended:true}));
 const main=async()=>{
     await mongoose.connect("mongodb://127.0.0.1:27017/practise");
@@ -61,32 +64,32 @@ app.post("/listings",validateListing,wrapAsync(async(req,res)=>{
 }));
 
 //Show Route
-app.get("/listings/:id",async(req,res)=>{
+app.get("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let list=await Listing.findById(id);
     res.render("listing/show",{list});
-});
+}));
 
 //Edit Route
-app.get("/listings/:id/edit",async(req,res)=>{
+app.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let list=await Listing.findById(id);
     res.render("listing/edit",{list});
-});
+}));
 
 //Update Route
-app.put("/listings/:id",validateListing,async(req,res)=>{
+app.put("/listings/:id",validateListing,wrapAsync(async(req,res)=>{
     let{id}=req.params;
      await Listing.findByIdAndUpdate(id,{...req.body.listing});
      res.redirect(`/listings/${id}`);
-});
+}));
 
 //Delete Route
-app.delete("/listings/:id",async(req,res)=>{
+app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
-});
+}));
 
 
 
